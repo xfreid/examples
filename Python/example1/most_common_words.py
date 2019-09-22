@@ -26,20 +26,20 @@ def findMostCommonWords (literatureText, wordsToExclude):
             count = mydict[word]
             count += 1
             mydict[word] = count
-            print "increment word " + word
+            print ("increment word " + word)
         else:
             mydict[word] = 1
-            print "add word " + word
+            print ("add word " + word)
 
-    print "\nprint mydict:"
+    print ("\nprint mydict:")
     for w in mydict.keys():
-        print w, mydict[w]
+        print (w, mydict[w])
 
-    print "\nprint sorted mydict:"
+    print ("\nprint sorted mydict:")
     for w in sorted(mydict, key=mydict.get, reverse=True):
-        print w, mydict[w]
+        print (w, mydict[w])
 
-    print "\nprint output:"
+    print ("\nprint output:")
 
 
 
