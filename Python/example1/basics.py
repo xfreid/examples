@@ -86,10 +86,12 @@ def add(a=0, b=0):
      return
 
 # num1 = int(raw_input('Please enter a number:'))
-# num1 = int(raw_input('Please enter an another number:'))
-# add(num1, num2)
-# add(num1)
-# add()
+# num2 = int(raw_input('Please enter an another number:'))
+num1 = 1
+num2 = 2
+add(num1, num2)
+add(num1)
+add()
 
 
 # PyCharm, community edition
@@ -133,12 +135,15 @@ print(ceil(3.1))   # return 4
 print(sqrt(36))    # return 6.0
 
 # get the user input
-user_name = input("this is a prompt, enter your name: ")
+# user_name = input("this is a prompt, enter your name: ")
+user_name = "fei"
 print("Hello " + user_name)
 
 # by default, input returns a string
-num1 = input("Enter a number: ")
-num2 = input("Enter another number: ")
+# num1 = input("Enter a number: ")
+# num2 = input("Enter another number: ")
+num1 = 1
+num2 = 2.3
 # int() only takes a "integer" string
 result = int(num1) + float(num2)
 print(result)
@@ -156,7 +161,7 @@ print(friends[2:3])   # returs Jim", "Oscar"
 friends[1] = "Mike"
 
 # list functions
-lucky_number = [4, 8, 15, 16, 23, 42]
+lucky_numbers = [4, 8, 15, 16, 23, 42]
 friends.extend(lucky_numbers)
 print(friends)
 friends.append("Creed")
@@ -180,8 +185,8 @@ print(friends.count("Jim"))   # return 2
 friends.sort()
 print(friends)
 
-lucky_number.reverse()
-print(lucky_number)
+lucky_numbers.reverse()
+print(lucky_numbers)
 
 # friends is the copy of friend
 friends2 = friends.copy()
@@ -194,7 +199,7 @@ print (coord[0])  # return 4
 
 # functions
 def cube(num):
-    return num*num*num*
+    return num*num*num
 
 result = cube(4)
 print(result)
@@ -230,9 +235,12 @@ def max_num(num1, num2, num3):
 print(max_num(3, 4, 5))
 
 # another example for comparison in if statement
-num1 = float(input("Enter first numer: "))
-op = input("Enter operator: ")
-num2 = float(input("Enter second numer: "))
+# num1 = float(input("Enter first numer: "))
+# op = input("Enter operator: ")
+# num2 = float(input("Enter second numer: "))
+num1 = 1.2
+op = "+"
+num2 = 2.3
 
 if op == "+":
     print(num1 + num2)
@@ -290,7 +298,7 @@ for index in range(10):    # 0 - 9, 10 will not be included
 for index in range(3, 10): # 3 - 9
     print(index)
 
-for index in range(len(friends))
+for index in range(len(friends)):
     print(friends[index])
 
 # exponent function
@@ -299,9 +307,9 @@ print (2**3)   # 2^3
 # two dimentinal list
 # each element in the list is a list
 number_grid = [
-    [1, 2, 3]
-    [4, 5, 6]
-    [7, 8, 9]
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
     [0]
 ]
 
@@ -324,7 +332,7 @@ def translate(phrase):
             translation = translation + letter
     return translation
 
-print (translate(input("Enter a phrase: ")))
+# print (translate(input("Enter a phrase: ")))
 
 
 

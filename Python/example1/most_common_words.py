@@ -1,14 +1,15 @@
 # find the most common used words from a string (a paragraph)
 
-# import re
+import re
 
 def findMostCommonWords (literatureText, wordsToExclude):
 
     # replace all the punctuation letters with space
-    # clean = re.sub(r"[,.;@#?!&$]+\ *", " ", tweet)
-    literatureText = literatureText.replace('.', ' ')
-    literatureText = literatureText.replace('\'', ' ')
-    literatureText = literatureText.replace(',', ' ')
+    literatureText = re.sub(r"[,.;@#?!&$+*'\"]", " ", literatureText)
+    print "after re.sub literatureText is \n   " + literatureText
+    # literatureText = literatureText.replace('.', ' ')
+    # literatureText = literatureText.replace('\'', ' ')
+    # literatureText = literatureText.replace(',', ' ')
         
     # split the literatureText to a list
     words = literatureText.split()
