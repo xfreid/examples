@@ -516,12 +516,12 @@ class Question:
 
 # create three Question instances
 questions = [
-     Question(question_prompt[0], "a"),
-     Question(question_prompt[1], "b"),
-     Question(question_prompt[2], "c")
+     Question(question_prompts[0], "a"),
+     Question(question_prompts[1], "b"),
+     Question(question_prompts[2], "c")
  ]       
 
- def run_test(questions):
+def run_test(questions):
     score = 0
     for question in questions:
         answer = input(question.prompt)
@@ -537,16 +537,16 @@ run_test(questions)
 # ---------------------------------------------------------------------
 class StudentNew:
     # initialize function to initialize the object attributes
-    def __init__(self, name, major, gpa, is_on_probation):
+    def __init__(self, name, major, gpa):
         self.name = name
         self.major = major
         self.gpa = gpa
 
     def on_honor_roll(self):
         if self.gpa >= 3.5:
-            return true
+            return True
         else:
-            return false
+            return False
 
 
 student1 = StudentNew("Jim", "Math", 3.6) 
