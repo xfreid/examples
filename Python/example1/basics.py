@@ -1,4 +1,6 @@
 # python basics
+# tutorial at youtube
+# https://www.youtube.com/playlist?list=PL-osiE80TeTt2d9bfVyTiXJA-UTHn6WwU
 
 # this is a single line comment
 
@@ -33,7 +35,6 @@ cp = c.partition('moon')
 print ("cp = ", cp)
 
 
-
 # ---------------------------------------------------------------------
 # print format
 # ---------------------------------------------------------------------
@@ -56,6 +57,14 @@ def showdoc():
 showdoc()
 print (showdoc.__doc__)
 
+# you can create another reference to the same function
+# now both my_showdoc and showdoc point to the same function
+my_showdoc = showdoc
+my_showdoc()
+
+# you can delete the reference
+del my_showdoc
+
 # ---------------------------------------------------------------------
 # function default arguments
 # ---------------------------------------------------------------------
@@ -65,9 +74,9 @@ def add(a=0, b=0):
 
 num1 = 1
 num2 = 2
-add(num1, num2)
-add(num1)
-add()
+add(num1, num2) # num1 + num2
+add(num1)       # num1 + 0
+add()           # 0 + 0
 
 # use * to specify that a function can be called with any number of arguments. 
 # The function can have regular parameters as well as this special parameter, 
@@ -124,6 +133,7 @@ print(phrase.replace("Giraffe", "Elephant"))
 print(2.09)
 print(3 + 4 * 5)   # *, /, +, -, %
 my_num = 5
+# str() converts a integer to a string
 print(str(my_num) + " is my favorite number")
 print(abs(-5))    # absolute value
 print(pow(5, 2))    # 5^2
@@ -412,8 +422,12 @@ emp_file.close()
 # modules and pip
 # ---------------------------------------------------------------------
 
-# module is a pythong file that we can import
+# module is a python file that we can import
 # you can find a huge list of python module by search "python module index"
+# when you use the import statement to import part or all of a module, Python 
+# automatically creates a new file. This new file is the compiled form of the 
+# module and it has the same module name as the original one, but it ends with 
+# .pyc instead of .py. In this case, it will generate test_module.pyc
 import test_module
 print(test_module.feet_in_miles)
 print(test_module.roll_dice(10))
@@ -535,13 +549,14 @@ run_test(questions)
 # ---------------------------------------------------------------------
 # class functions
 # ---------------------------------------------------------------------
-class StudentNew:
+class Student2:
     # initialize function to initialize the object attributes
     def __init__(self, name, major, gpa):
         self.name = name
         self.major = major
         self.gpa = gpa
 
+    # regular method takes the object instance as the first argument 
     def on_honor_roll(self):
         if self.gpa >= 3.5:
             return True
@@ -549,14 +564,13 @@ class StudentNew:
             return False
 
 
-student1 = StudentNew("Jim", "Math", 3.6) 
-student2 = StudentNew("Pam", "Art", 2.5) 
-print(student1.on_honor_roll())
+s1 = Student2("Jim", "Math", 3.6) 
+s2 = Student2("Pam", "Art", 2.5) 
+print(s1.on_honor_roll())
 
 # ---------------------------------------------------------------------
 # class inheritance
 # ---------------------------------------------------------------------
-
 class Chef:
     def make_chicken(self):
         print("chef makes chicken")
@@ -570,7 +584,7 @@ class Chef:
 myChef = Chef()
 myChef.make_chicken()
 
-# ChineseChef derives from Chef
+# ChineseChef derives from classs Chef
 class ChineseChef(Chef):
     # override the make_special_dish in Chef
     def make_special_dish(self):
@@ -582,5 +596,289 @@ class ChineseChef(Chef):
 myChineseChef = ChineseChef()
 myChineseChef.make_chicken()
 myChineseChef.make_fried_rice()
+
+# ---------------------------------------------------------------------
+# class method, static method, datetime, split
+# ---------------------------------------------------------------------
+class Student3:
+    # class attribute (variable)
+    # class attributes are shared (referenced) by all instances of the class.
+    # each object instance of the class simply reference to class attributes unless the 
+    # instance makes a change to a class attribute, which in this case, a instance attribute
+    # is created.
+    score_amt = 4
+
+    # initialize function to initialize the object attributes
+    def __init__(self, name, major, gpa):
+        self.name = name
+        self.major = major
+        self.gpa = gpa
+
+    # regular (instance) method takes the object instance as the first argument
+    # "self" is just a convention, it could be any non-keyword string 
+    def on_honor_roll(self):
+        if self.gpa >= 3.5:
+            return True
+        else:
+            return False
+
+    # you need @classemthod decarator to define a class method
+    # "cls" is just convention, it could be any non-keyword string
+    @classmethod
+    def set_score_amount(cls, amt):
+        cls.score_amt = amt
+
+    # use class method as an alternative for contructing an object
+    @classmethod
+    def from_string(cls, s_str):
+        name, major, gpa = s_str.split('-')
+        return cls(name, major, gpa)
+
+    # static method doesn't automatically take instance or class as first argument
+    # static method doesn't access instance or class attributes
+    @staticmethod
+    def is_workday(day):
+        if day.weekday() == 5 or day.weekday() == 6:
+            return False
+        else:
+            return True
+
+
+s1 = Student3("Jim", "Math", 3.6) 
+s2 = Student3("Pam", "Art", 2.5) 
+
+# the following three calls all print 4
+print(Student3.score_amt)
+print(s1.score_amt)
+print(s2.score_amt)
+
+# __dict__ contains the all the attributes in the class or object intance
+print(Student3.__dict__)
+# s1 and s2 doesn't have "score_amt" in __dict__
+print(s1.__dict__)
+print(s2.__dict__)
+
+# this changes the value of the class attribute
+# note: you can run the class method from an instance, it behaves the same
+#       but it doesn't make a lot of sense
+Student3.set_score_amount(4.2)
+# this would do the same thing, but it doens't make sense
+s1.set_score_amount(4.2)
+
+# this creates an instance attrbiute for s1
+s1.score_amt = 4.5
+
+print(Student3.__dict__)
+# since we set score_amt for s1, it becomes an instance attribute for s1
+# so s1 has "score_amt" in its __dict__
+print(s1.__dict__)
+print(s2.__dict__)
+
+# class class method "from_string" to construct object
+s3_string = "Jam-Physcis-3.6"
+s4_string = "Pim-Medical-2.5"
+
+s3 = Student3.from_string(s3_string)
+s4 = Student3.from_string(s4_string)
+
+print(s3.name)
+
+import datetime
+my_date = datetime.date(2019, 10, 12)  # 10/12/19
+print(Student3.is_workday(my_date))
+
+# ---------------------------------------------------------------------
+# class special (dunder) methods: 
+#  __repr__, __str__, __add__, __len__
+# ---------------------------------------------------------------------
+# by default, print(<object>) prints something like
+#      TODO:
+# once you define __repr__ or __str__, you can call repr(<object>)
+# or str(<object>)
+# str is a more readable representation of the object, it is meanted to be 
+#     displayed to end user 
+# repr is a unique representation of the object, which is often used by 
+#     other developers
+# str will use repr as fallback
+
+class Student4:
+
+    def __init__(self, name, major, gpa):
+        self.name = name
+        self.major = major
+        self.gpa = gpa
+
+    def __repr__(self):
+        return "Student('{}', '{}', {})".format(self.name, self.major, self.gpa)
+
+    def __str__(self):
+        return "'{}' - '{}'".format(self.name, self.major)
+
+    def __add__(self, other):
+        return self.gpa + other.gpa
+
+    def __len__(self):
+        return len(self.name)
+
+s1 = Student4("Jim", "Math", 3.6) 
+s2 = Student4("Pam", "Art", 2.5) 
+# print will call __str__ if it exists, else it call __repr__
+print(s1)
+
+print(repr(s1))
+# this is same as 
+print(s1.__repr__())
+
+# __add__
+# print(1+2) internally calls int.__add__()
+# it is same as print(int.__add__(1, 2))
+# similarly, print("a" + "b") internally calls str.__add__()
+# it is same as print(str.__add__("a", "b"))
+
+# print(s1 + s2) is same as s1.__add__(s2)
+print(s1 + s2)
+print(Student4.__add__(s1, s2))
+
+# __len__
+# len() internally calls str.__len__()
+# len("test") is same as "test".__len__()
+# print(len(s1)) is same as print(s1.__len__())
+print(len(s1))
+
+# list of the special methods
+# https://docs.python.org/3/reference/datamodel.html#special-method-names
+
+
+# ---------------------------------------------------------------------
+# property decorators 
+# ---------------------------------------------------------------------
+class Student5:
+
+    def __init__(self, first, last):
+        self.first = first
+        self.last = last
+
+    # with @property decorator, email() function is accessible as an attrbiute
+    # @property defines a getter function
+    # whenever you try to get "email" as attribute, it calls this function
+    @property
+    def email(self):
+        return "{}.{}@hotmail.com".format(self.first, self.last)
+
+    @property
+    def fullname(self):
+        return "{} {}".format(self.first, self.last)
+    
+    #this defines a setter function
+    # whenever you try to set "fullname" as an attribute, it calls this function
+    @fullname.setter
+    def fullname(self, name):
+        self.first, self.last = name.split(' ')
+    
+    @fullname.deleter
+    def fullname(self):
+        self.first = None
+        self.last = None
+
+s1 = Student5("Jim", "Wang")
+# instead of s1.email(), you can access email as an attribute
+print(s1.email)
+
+# this calls fullname() with @fullname.setter decorator
+s1.fullname = "Andy Wu"
+# s1.first should return "Andy" and s1.last should return "Wu"
+print(s1.first + " " + s1.last)
+
+# this calls fullname() with fullname.deleter decorator
+del s1.fullname
+
+# ---------------------------------------------------------------------
+# string formatting 
+# ---------------------------------------------------------------------
+person = {'name': 'Jenny', 'age': 23}
+# a non-formating example, not very readable
+setence1 = "My name is " + person['name'] + " and I am " + str(person['age']) + " years old"
+print("sentence1: " + sentence1)
+
+# {} as placeholder
+setence2 = "My name is {} and I am {} years old".format(person['name'], person['age'])
+print("sentence2: " + sentence2)
+
+# you can number the placeholder
+setence3 = "My name is {0} and I am {1} years old".format(person['name'], person['age'])
+print("sentence3: " + sentence3)
+
+# you can access the dict dirctly from placeholder
+# note there is no quote around "name" and "age" in placeholder
+setence4 = "My name is {0[name]} and I am {0[age]} years old".format(person)
+print("sentence4: " + sentence4)
+
+# placeholder can be use more than once
+tag = "h1"
+text = "hell world"
+sentence5 = "<{0}>{1}</{0}>".format(tag, text)
+print("sentence5: " + sentence5)
+
+# you can access the list too
+li = ["Jenny", 23]
+setence6 = "My name is {0[0]} and I am {0[1]} years old".format(li)
+print("sentence6: " + sentence6)
+
+# you can access attribute in class
+class Person:
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+p1 = Person("Jenny", 23)
+setence7 = "My name is {0.name} and I am {0.age} years old".format(p1)
+print("sentence7: " + sentence7)
+
+# access the keywords defined in format
+setence8 = "My name is {name} and I am {age} years old".format(name="Jenny", age=23)
+print("sentence8: " + sentence8)
+ 
+ # you can unpack the dictionary
+ # this is equivalent to setence8
+setence9 = "My name is {name} and I am {age} years old".format(**person)
+print("sentence9: " + sentence9)
+ 
+# format numbers
+for i in range(1, 11):
+    # this prints 1, 2, 3 ...
+    setence = "the value is {}".format(i)
+    # this prints 01, 02, 03 ...
+    setence2 = "the value is {:02}".format(i)
+    print (sentence)
+
+# decimal point
+pi = 3.14156926
+# this prints "3.14"
+setence_pi = "Pi is equal to {:.2f}".format(pi)
+# this prints "3.1415"
+setence_pi2 = "Pi is equal to {:.4f}".format(pi)
+
+# print large number with , separtor 
+# this prints "1,000,000"
+setence_ln = "1M is equal to {:,} byte".format(1000**2)
+# this prints "1,000,000.00"
+setence_ln2 = "1M is equal to {:,.2f} byte".format(1000**2)
+
+# print date
+# make sure to "import datetime"
+my_date = datetime.datetime(2019, 10, 16, 10, 53, 35)
+# this prints "2019-10-16 10:53:35"
+print (my_date)
+
+# more info is available at https://docs.python.org/3/library/datetime.html
+# search for "Format Codes"
+# this prints "October 10, 2019"
+sentence_dt = "{:%B %d, %Y}".format(my_date)
+print (sentence_dt)
+
+sentence_dt = "{0:%B %d, %Y} fell on a {0:%A} and was the day {0:%j} of the year".format(my_date)
+print (sentence_dt)
+
 
 
