@@ -18,7 +18,9 @@ print("Hello World")
 
 # range() returns a list
 nums = range(10)
+# num retruns "range(0,10)"
 print ("nums is", nums)
+# *num returns 0 1 2 ... 9
 print (*nums)
 # print the list using ',' as delimiter
 print (*nums, sep = ",")
@@ -143,8 +145,8 @@ print(round(3.2))  # return 3
 print(round(3.7))  # return 4
 
 # import more math function
-#   from <a file> import <class(es)> 
-from math import *
+#   from <module> import <function/class/variable...> 
+from math import floor, ceil, sqrt
 print(floor(3.7))  # return 3
 print(ceil(3.1))   # return 4
 print(sqrt(36))    # return 6.0
@@ -797,20 +799,20 @@ del s1.fullname
 # ---------------------------------------------------------------------
 person = {'name': 'Jenny', 'age': 23}
 # a non-formating example, not very readable
-setence1 = "My name is " + person['name'] + " and I am " + str(person['age']) + " years old"
+sentence1 = "My name is " + person['name'] + " and I am " + str(person['age']) + " years old"
 print("sentence1: " + sentence1)
 
 # {} as placeholder
-setence2 = "My name is {} and I am {} years old".format(person['name'], person['age'])
+sentence2 = "My name is {} and I am {} years old".format(person['name'], person['age'])
 print("sentence2: " + sentence2)
 
 # you can number the placeholder
-setence3 = "My name is {0} and I am {1} years old".format(person['name'], person['age'])
+sentence3 = "My name is {0} and I am {1} years old".format(person['name'], person['age'])
 print("sentence3: " + sentence3)
 
 # you can access the dict dirctly from placeholder
 # note there is no quote around "name" and "age" in placeholder
-setence4 = "My name is {0[name]} and I am {0[age]} years old".format(person)
+sentence4 = "My name is {0[name]} and I am {0[age]} years old".format(person)
 print("sentence4: " + sentence4)
 
 # placeholder can be use more than once
@@ -821,7 +823,7 @@ print("sentence5: " + sentence5)
 
 # you can access the list too
 li = ["Jenny", 23]
-setence6 = "My name is {0[0]} and I am {0[1]} years old".format(li)
+sentence6 = "My name is {0[0]} and I am {0[1]} years old".format(li)
 print("sentence6: " + sentence6)
 
 # you can access attribute in class
@@ -832,38 +834,38 @@ class Person:
         self.age = age
 
 p1 = Person("Jenny", 23)
-setence7 = "My name is {0.name} and I am {0.age} years old".format(p1)
+sentence7 = "My name is {0.name} and I am {0.age} years old".format(p1)
 print("sentence7: " + sentence7)
 
 # access the keywords defined in format
-setence8 = "My name is {name} and I am {age} years old".format(name="Jenny", age=23)
+sentence8 = "My name is {name} and I am {age} years old".format(name="Jenny", age=23)
 print("sentence8: " + sentence8)
  
  # you can unpack the dictionary
  # this is equivalent to setence8
-setence9 = "My name is {name} and I am {age} years old".format(**person)
+sentence9 = "My name is {name} and I am {age} years old".format(**person)
 print("sentence9: " + sentence9)
  
 # format numbers
 for i in range(1, 11):
     # this prints 1, 2, 3 ...
-    setence = "the value is {}".format(i)
+    sentence = "the value is {}".format(i)
     # this prints 01, 02, 03 ...
-    setence2 = "the value is {:02}".format(i)
+    sentence2 = "the value is {:02}".format(i)
     print (sentence)
 
 # decimal point
 pi = 3.14156926
 # this prints "3.14"
-setence_pi = "Pi is equal to {:.2f}".format(pi)
+sentence_pi = "Pi is equal to {:.2f}".format(pi)
 # this prints "3.1415"
-setence_pi2 = "Pi is equal to {:.4f}".format(pi)
+sentence_pi2 = "Pi is equal to {:.4f}".format(pi)
 
 # print large number with , separtor 
 # this prints "1,000,000"
-setence_ln = "1M is equal to {:,} byte".format(1000**2)
+sentence_ln = "1M is equal to {:,} byte".format(1000**2)
 # this prints "1,000,000.00"
-setence_ln2 = "1M is equal to {:,.2f} byte".format(1000**2)
+sentence_ln2 = "1M is equal to {:,.2f} byte".format(1000**2)
 
 # print date
 # make sure to "import datetime"
