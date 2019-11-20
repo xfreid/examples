@@ -1,0 +1,13 @@
+buildscript {
+    repositories {
+        maven {
+            def producerName = findProperty('producerName') ?: 'greeting_2'
+            def repoLocation = "../$producerName/build/repo"
+            url = uri(repoLocation)
+        }
+    }
+    dependencies {
+        classpath 'fei.gradle:myCustomPlugin:1.0'
+    }
+}
+apply plugin: 'fei.gradle.GreetingPlugin'
