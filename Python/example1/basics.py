@@ -379,46 +379,57 @@ except:
 
 
 # ---------------------------------------------------------------------
+# file IO
+# ---------------------------------------------------------------------
+# write a new file
+emp_file = open("employee.txt", "w")
+emp_file.write("Jim - Salesman\n")
+emp_file.write("Karen - Salesman\n")
+emp_file.close()
+
+# ---------------------------------------------------------------------
 # read file
 # ---------------------------------------------------------------------
 # read the file in the read mode, other modes are "w", "a", "r+" (r/w)
 # emp_file has the content of the file
-emp_file = open("C:/Git/Python/example1/employee.txt", "r")
+emp_file = open("employee.txt", "r")
 print(emp_file.readable())
 
 # print the whole file
 print(emp_file.read())
 
 # print the first line
+# read() reads the whole file, without seek(0) which puts the current
+# position back to the beginning of the file, the following function call 
+# would return nothing
+emp_file.seek(0)
 print(emp_file.readline())
 
 # realines() return an array
+emp_file.seek(0)
 print(emp_file.readlines())
 
 # loop through each line of file
+emp_file.seek(0)
 for emp in emp_file.readlines():
     print(emp)
 
 # close the file
 emp_file.close()
 
-
-# ---------------------------------------------------------------------
-# write to a file
-# ---------------------------------------------------------------------
 # append to an existing file
-# emp_file = open("employee.txt", "a")
-# without \n, next write() will write to the end of same line
-# emp_file.write("Toby - Human Resources\n")
-# emp_file.close()
-
 # with mode "w", the exist file will be overwritten
+emp_file = open("employee.txt", "a")
+# without \n, next write() will write to the end of same line
+emp_file.write("Toby - Human Resources\n")
+emp_file.close()
 
-# write a new file
-# emp_file1 = open("employee1.txt", "w")
-# emp_file1.write("Toby - Human Resources\n")
-# emp_file1.close()
-
+# delete a file
+import os
+import os.path
+from os import path
+if path.exists("employee.txt"):
+    os.remove("employee.txt")
 
 # ---------------------------------------------------------------------
 # modules and pip

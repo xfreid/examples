@@ -1,0 +1,5 @@
+task other {
+   doLast {
+      println 'this is a script plugin'
+   }
+}
