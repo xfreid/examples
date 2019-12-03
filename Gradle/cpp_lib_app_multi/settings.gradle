@@ -1,0 +1,3 @@
+// mutli-projects
+include 'myapp', 'hello-lib'
+
