@@ -1,0 +1,48 @@
+
+/*
+plugins {
+    // Apply the cpp-library plugin to add support for building C++ libraries
+    id 'cpp-library'
+
+    // Apply the cpp-unit-test plugin to add support for building and running C++ test executables
+    id 'cpp-appication'
+}
+
+// Set the target operating system and architecture for this library
+library {
+    targetMachines.add(machines.windows.x86_64)
+}
+
+
+library {
+    source.from file('src/hello/cpp')
+    // privateHeaders.from file('src')
+    publicHeaders.from file('crc/hello/header')
+}
+
+application {
+    source.from file('src/main/cpp')
+}
+*/
+
+// build.gradle
+apply plugin: 'cpp'
+
+model {
+
+  components {
+    hello(NativeLibrarySpec) {
+      binaries.all {
+	cppCompiler.define "HELLO_EXPORT"
+      }
+    }
+
+    main(NativeExecutableSpec) {
+      binaries.all {
+        lib library: "hello"
+      }
+    }
+  }
+}
+
+

@@ -1,0 +1,63 @@
+plugins {
+    id 'groovy'
+    id 'maven-publish'
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/foo']
+        }
+    }
+
+    main {
+        resources {
+            srcDirs = ['src/bar']
+        }
+    }
+}
+
+// experiment
+sourceSets.main.groovy.filter.include('**/*.gooy')
+println "i am here"
+println sourceSets.main.allSource.files
+println sourceSets.main.groovy.getFiles()
+println sourceSets.main.groovy.matching({include '**/*.gooy'}).getFiles()
+
+// compileGroovy {
+//     source = file('src/foo/**/*.gooy')
+// }
+
+
+/*
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+}
+*/
+
+// group = 'org.gradle'
+group = 'fei.personal'
+// version = '1.0-SNAPSHOT'
+version = '1.0'
+
+publishing {
+    repositories {
+        maven {
+            url = uri("$buildDir/repo")
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}

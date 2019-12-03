@@ -1,0 +1,23 @@
+buildscript {
+    repositories {
+        maven {
+            // def producerName = findProperty('producerName') ?: 'new_plugin'
+            def producerName = findProperty('producerName') ?: 'plugin_sourceset'
+            def repoLocation = "../$producerName/build/repo"
+            url = uri(repoLocation)
+        }
+    }
+    dependencies {
+        // classpath 'org.gradle:newPlugin:1.0-SNAPSHOT'
+        // classpath 'org.gradle:newPlugin:1.0'
+        classpath 'fei.personal:newPlugin:1.0'
+    }
+}
+// apply plugin: 'org.samples.greeting'
+apply plugin: 'fei_1'
+
+/*
+task greeting(type: org.gradle.GreetingTask) {
+    greeting = 'howdy!'
+}
+*/

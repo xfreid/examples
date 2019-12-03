@@ -1,0 +1,36 @@
+plugins {
+    id 'cpp-library'
+    // id 'xcode'
+}
+
+group = 'org.gradle.cpp-samples'
+version = '1.2'
+
+// this doesn't work
+// library {
+//   source {
+//      from project.fileTree(dir: "src/main/cpp", include: "**/*.cxx")
+//   }
+// }
+
+// this works
+// binaries is a property on CppLibrary
+// https://docs.gradle.org/current/dsl/org.gradle.language.cpp.CppLibrary.html#N2E21D
+// the closure is executed against CppLibrary
+library {
+    binaries.configureEach {
+        def compileTask = compileTask.get()
+        compileTask.source.from fileTree(dir: "src/main/cpp", include: "**/*.cxx")
+    }
+}
+
+// if this library depends on other libraries, we need add
+// the following section
+/*
+library {
+    dependencies {
+        api 'org.gradle.cpp-samples:list:1.5'
+    }
+}
+*/
+

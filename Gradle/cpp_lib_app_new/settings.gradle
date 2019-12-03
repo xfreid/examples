@@ -1,0 +1,6 @@
+rootProject.name = 'myapp'
+
+// includeBuild 'list-library'
+// includeBuild 'utilities-library'
+includeBuild 'hello-lib'
+

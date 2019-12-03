@@ -1,0 +1,7 @@
+// apply plugin: com.fei.gradle.GreetingPlugin
+// apply plugin: 'test_plugin'
+
+plugins {
+  id 'test_plugin'
+}
+
