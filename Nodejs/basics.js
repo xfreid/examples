@@ -1,4 +1,5 @@
 // Hello World
+// var keyword is not "required"
 var msg = 'Hello World';
 console.log(msg);
 
@@ -71,8 +72,78 @@ callFunc(sayBye);
 
 // we don't typically write all the code in one file
 // to import a module
-// requrie() returns the exported funciton
-var counter = require('./count');  // no .js is needed
+// requrie() returns the exported function
+var counter = require('./count');  // no .js extension is needed
 console.log(counter(['karen', 'Shawn', 'Rye']));
+
+
+// ---------------------------------------------------------------------
+// first class function
+// https://www.youtube.com/watch?v=kr0mpwqttM0 
+// ---------------------------------------------------------------------
+function square(x) {
+    return x * x
+}
+
+// f gets the result of the function call
+f1 = square(5)
+// this prints something like "[Function: square]"
+console.log(square)
+console.log(f1)
+
+// however, you can assign the function itself to a variable
+// f2 is like function pointer in C++
+f2 = square
+
+//  f2 can now be used exactly as square
+console.log(f2(5))
+
+//pass a function as argument to another function
+function my_map (func, arg_list) {
+    result = []
+    for (var i = 0; i <= arg_list.length; i++) {
+        result.push(func(i))
+    }
+    return result
+}
+
+// you can replace "square" with "f2"
+var squares = my_map(square, [1, 2, 3, 4, 5])
+console.log(squares)
+
+function cube(x) {
+    return x * x * x
+}
+
+var cubes = my_map(cube, [1, 2, 3, 4, 5])
+console.log(cubes)
+
+// return a function from a function
+function logger(msg) {
+    function log_message() {
+        console.log('Log:', msg)
+    }
+    return log_message
+}
+
+var log_hi = logger('Hi!')
+log_hi()
+
+// a slightly complex example
+function html_tag(tag) {
+    function wrap_text(msg) {
+        console.log('<' + tag + '>' + msg + '</' + tag + '>')
+    }
+    return wrap_text
+}
+
+var print_h1 = html_tag('h1')
+// this prints something like "[Function: wrap_text]"
+// console.log(print_h1)
+print_h1('Test Headline!')
+print_h1('Another Headline!')
+
+var print_p = html_tag('p')
+print_p('Test Paragraph')
 
 

@@ -6,6 +6,7 @@ public class Animal {
     private String sound;
 
     // core of the Strategy Pattern
+    // public so that sub-class can access
     public Fly flyBehaivor;
 
     public String getName() { return name; }

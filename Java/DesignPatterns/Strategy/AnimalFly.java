@@ -1,3 +1,4 @@
+// Main class - client
 public class AnimalFly {
     public static void main(String[] args) {
         Animal sparky = new Dog();

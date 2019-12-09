@@ -782,7 +782,7 @@ class Student5:
     def fullname(self):
         return "{} {}".format(self.first, self.last)
     
-    #this defines a setter function
+    # this defines a setter function
     # whenever you try to set "fullname" as an attribute, it calls this function
     @fullname.setter
     def fullname(self, name):
@@ -892,6 +892,108 @@ print (sentence_dt)
 
 sentence_dt = "{0:%B %d, %Y} fell on a {0:%A} and was the day {0:%j} of the year".format(my_date)
 print (sentence_dt)
+
+
+# ---------------------------------------------------------------------
+# first class function
+# https://www.youtube.com/watch?v=kr0mpwqttM0 
+# ---------------------------------------------------------------------
+def square(x):
+    return x * x
+
+# f gets the result of the function call
+f1 = square(5)
+# this prints something like "<function square at 0x000002CA04365F28>"
+print (square)
+print (f1)
+
+# however, you can assign the function itself to a variable
+# f2 is like function pointer in C++
+f2 = square
+# you can see f2 is exactly same as  square
+print (square)
+print (f2)
+
+# f2 can be used exactly as square
+print (f2(5))
+
+# pass a function as argument to another function
+def my_map (func, arg_list):
+    result = []
+    for i in arg_list:
+        result.append(func(i))
+    return result
+
+# you can replace "square" with "f2"
+squares = my_map(square, [1, 2, 3, 4, 5])
+print (squares)
+
+def cube(x):
+    return x * x * x
+
+cubes = my_map(cube, [1, 2, 3, 4, 5])
+print (cubes)
+
+# return a function from a function
+def logger(msg):
+    def log_message():
+        print ('Log:', msg)
+    return log_message
+
+# this also demonstrates the closure
+# see the next section for more info 
+log_hi = logger('Hi!')
+log_hi()
+
+# a slightly complex example
+def html_tag(tag):
+    def wrap_text(msg):
+        print ('<{0}>{1}</{0}>'.format(tag, msg))
+    return wrap_text
+
+print_h1 = html_tag('h1')
+# this prints something like "<function html_tag.<locals>.wrap_text at 0x000001F01D7BDC80>"
+# print(print_h1)
+print_h1('Test Headline!')
+print_h1('Another Headline!')
+
+print_p = html_tag('p')
+print_p('Test Paragraph')
+
+
+# ---------------------------------------------------------------------
+# closure
+# https://www.youtube.com/watch?v=swU3c34d2NQ 
+# ---------------------------------------------------------------------
+def outer_func ():
+    message = 'Hi'
+
+    def inner_func():
+        print (message)
+    return inner_func
+
+my_func = outer_func()
+# what happens if we run my_func
+# my_func is still able to access 'message'
+# a closure is inner function that rememembers and has access to variables
+# in the local scope in which they were created even after outer function
+# finished executing
+# so the following still prints "Hi"
+my_func()
+
+def outer_func_2 (message):
+    def inner_func_2():
+        print(message)
+    return inner_func_2
+
+my_func_2 = outer_func_2("Foo")
+# my_func_2 has access to the message variable when it was created
+# so it prints "Foo"
+my_func_2()
+my_func_3 = outer_func_2("Bar")
+my_func_3()
+
+
 
 
 
