@@ -1,0 +1,10 @@
+# Ignore generated executables
+*.exe
+
+# Ignore directories
+CMakeFiles
+
+# Ignore generated makefiles
+Makefile
+cmake_install.cmake
+CMakeCache.txt

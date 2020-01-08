@@ -462,8 +462,8 @@ const constArray = [1, 2, 3];
 constArray[0] = 4; 
 console.log(constArray);
 
-// similarly, if an Object is eclared as const, you can
-// still mutate the proeprties in Object using dot/bracket noation
+// similarly, if an Object is declared as const, you can
+// still mutate the properties in Object using dot/bracket noation
 const MATH_CONST = {
     "PI" : 3.14
 }
@@ -472,9 +472,10 @@ console.log(MATH_CONST);
 
 // with Object.freeze
 Object.freeze(MATH_CONST);
-MATH_CONST.PI = "second try";
+// this will give "Cannot assign to read only property 'PI' of object '#<Object>'" error
+// MATH_CONST.PI = "second try";
 // MATH_CONST ramins as "{ PI: 'surprise' }"
-console.log(MATH_CONST);
+// console.log(MATH_CONST);
 
 // anonymous function
 let magic = function() {
@@ -604,7 +605,7 @@ console.log(varFoo, varBar);
 // use destructing assignment with rest operator
 // example, remove the first two elements of the source Array
 // and assign to the dest Array
-sourceArray = [1, 2, 3, 4, 5, 6];
+let sourceArray = [1, 2, 3, 4, 5, 6];
 const [, , ...destArray] = sourceArray;
 console.log(destArray);
 

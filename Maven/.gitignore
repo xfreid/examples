@@ -1,0 +1,5 @@
+# Ignore generated class files
+*.class
+
+# Ignore target/ directory 
+target/

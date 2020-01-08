@@ -1,0 +1,4 @@
+# Ignore generated executables
+*.exe
+
+# Ignore Gradle build output directory

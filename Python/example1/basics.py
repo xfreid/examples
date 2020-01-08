@@ -38,7 +38,7 @@ print ("cp = ", cp)
 
 
 # ---------------------------------------------------------------------
-# print format
+# % formatting
 # ---------------------------------------------------------------------
 format = "My %s Python class is %s! I am %s to be here."
 var = ('first', 'great', 'glad')
@@ -173,11 +173,22 @@ print(result)
 friends = ["Kevin", "Karen", "Jim", "Oscar", "Toby"]
 mixture = ["Kevin", 21, True]
 print(friends)
-print(friends[0])   # returs "Kevin"
-print(friends[-1])   # returs "Toby"
-# range
+print(friends[0])   # returs the first element - "Kevin"
+print(friends[-1])   # returs the last element - "Toby"
+# range/slice
+# slice format: aList[start:end:step]
+# the starting element is included but the ending element is not
 print(friends[1:])   # returs "Karen", "Jim", "Oscar", "Toby"
-print(friends[2:3])   # returs Jim", "Oscar"
+print(friends[2:4])   # returs Jim", "Oscar"
+print(friends[0:5:2]) # return "Kevin", "Jim", "Toby"
+# reverse a list simply by calling aList[::-1]
+print(friends[::-1]) #
+
+# list can be "unpacked" into separate elements
+name1, name2 = friends[2:4]
+# see f-string for more info
+print(f'name1 is {name1}; name2 is {name2}')
+
 # replace "Karen" with "Mike"
 friends[1] = "Mike"
 
@@ -185,6 +196,7 @@ friends[1] = "Mike"
 # list functions
 # ---------------------------------------------------------------------
 lucky_numbers = [4, 8, 15, 16, 23, 42]
+# concatenate another list
 friends.extend(lucky_numbers)
 print(friends)
 friends.append("Creed")
@@ -214,6 +226,51 @@ print(lucky_numbers)
 # friends is the copy of friend
 friends2 = friends.copy()
 
+# list can contain another list, or tuple
+list_1 = [1, 2, 3, 4, 5]
+# append a tuple
+list_1.append((6, 7))
+print('list_1 is {}'.format(list_1))
+# append a list
+list_1.append([8, 9])
+print('list_1 is {}'.format(list_1))
+
+# ---------------------------------------------------------------------
+# zipping
+# ---------------------------------------------------------------------
+# Zip function creates an iterator that aggregates elements from multiple lists. 
+# It allows traversing lists in parallel in a for-loop and sorting in parallel. 
+# It can be unzipped using an asterisk.
+numList = [0, 1, 2]
+engList = ['zero', 'one', 'two']
+espList = ['cero', 'uno', 'dos']
+print ('zipping:')
+# zip returns a zip object
+# e.g. <zip object at 0x000001941AB40908>
+print(zip(numList, engList, espList))
+print(list(zip(numList, engList, espList)))
+# [(0, 'zero', 'cero'), (1, 'one', 'uno'), (2, 'two', 'dos')]
+
+for num, eng, esp in zip(numList, engList, espList):
+    print(f'{num} is {eng} in English and {esp} in Spanish.')
+# 0 is zero in English and cero in Spanish.
+# 1 is one in English and uno in Spanish.
+# 2 is two in English and dos in Spanish.
+
+Eng = list(zip(engList, espList, numList))
+Eng.sort() # sort by engList
+# unzipped using an asterisk.
+print ('unzipping:')
+a, b, c = zip(*Eng)
+
+print(a)
+print(b)
+print(c)
+# ('one', 'two', 'zero')
+# ('uno', 'dos', 'cero')
+# (1, 2, 0)
+
+
 # ---------------------------------------------------------------------
 # tuple, use ()
 # ---------------------------------------------------------------------
@@ -221,6 +278,12 @@ friends2 = friends.copy()
 coord = (4, 5, 6)
 print (coord[0])  # return 4
 # coord[1] = 6    # python will error out
+
+# list of tuples
+listu = [(1, 2), (3, 4), ('a', 'b')]
+# unpacking
+for lisa, lisb in listu:
+    print(lisa, lisb)
 
 # ---------------------------------------------------------------------
 # functions
@@ -428,6 +491,7 @@ emp_file.close()
 import os
 import os.path
 from os import path
+# delete a file if it exists
 if path.exists("employee.txt"):
     os.remove("employee.txt")
 
@@ -993,7 +1057,201 @@ my_func_2()
 my_func_3 = outer_func_2("Bar")
 my_func_3()
 
+# ---------------------------------------------------------------------
+# f-string formatting
+# https://www.youtube.com/watch?v=nghuHvKLhJA
+# f-string is new way of formatting string in python 3.6
+# ---------------------------------------------------------------------
 
+# old way of using format() 
+first_name = "Corey"
+last_name = "Shaft"
+print('format(): My name is {} {}'.format(first_name, last_name))
+
+# using f-string
+print(f'f-string: My name is {first_name} {last_name}')
+
+# we can call funciton/method directly inside f-string
+print(f'My name is {first_name.upper()} {last_name.lower()}')
+
+# use f-string with dictionary
+# person dictionary was defined earlier
+# person = {'name': 'Jenny', 'age': 23}
+print(f"My name is {person['name']}, and I am {person['age']} years old")
+
+# you can do calculation directly in f-string
+calculation = f'4 times 11 equals {4 * 11}'
+print(calculation)
+
+for n in range (1, 10):
+    # 0 padding and 3 digits
+    # so "1" will be displayed as "001"
+    sentence = f'the current value is {n:03}'
+    print(sentence)
+
+# print 4 digits after dicimal point for floating point number
+print(f'Pi is equal to {pi:.4f}')
+
+# date
+birthday = datetime.date(1984, 10, 11)
+# October 11, 1984
+print(f'Jen has a birthday of {birthday:%B %d, %Y}')
+
+
+# ---------------------------------------------------------------------
+# generator
+# https://www.youtube.com/watch?v=bD05uGo_sVI
+# "yield" makes a generator
+# ---------------------------------------------------------------------
+def sqaure_number(numw):
+    for i in nums:
+        yield i*i
+
+my_squares = sqaure_number([1, 2, 3, 4, 5])
+# my_squares is just a generator object
+print(my_squares)
+# to print the new numbers in generator
+print(next(my_squares))   # this prints 1
+print(next(my_squares))   # this prints 4 (2*2)
+print(next(my_squares))   # this prints 9 (3*3)
+print(next(my_squares))   # this prints 16
+print(next(my_squares))   # this prints 25
+
+# alternatively, you can still use for loop to iterate through the new numbers in generator
+for new_num in my_squares:
+    print(new_num)
+
+# generator above can be simplified as
+my_squares_2 = (x*x for x in [1, 2, 3, 4, 5])
+# my_squares_2 is exactly same as my_square
+
+# to convert a generator object to a list
+print(list(my_squares_2))
+
+# generator is better in terms of the memory consumption
+# since it does NOT store all the data in memory as list comprehension
+# use the following example to demonstrate the difference
+
+# you need to install memory_profiler package first
+# pip install memory_profiler
+import memory_profiler as mem_profile
+import random
+import time
+
+pnames = ['John', 'Steve', 'David', 'Joseph', 'Howard', "Adam"]
+pmajors = ['Math', 'Physics', 'Chemistry', 'Civil', 'Mechnical']
+
+print ('Memory (before) {}MB'.format(mem_profile.memory_usage()))
+
+def people_list(num_people):
+    result = []
+    for i in range(num_people):
+        people = {
+            'id': i,
+            'name': random.choice(pnames),
+            'major': random.choice(pmajors)
+        }
+        result.append(people)
+    return result
+
+def people_gen(num_people):
+    for i in range(num_people):
+        people = {
+            'id': i,
+            'name': random.choice(pnames),
+            'major': random.choice(pmajors)
+        }
+        yield people
+
+t1 = time.process_time()
+people_list(1000000)
+t2 = time.process_time()
+
+# t1 = time.clock()
+# people_gen(1000000)
+# t2 = time.clock()
+
+print ('Memory (before) {}MB'.format(mem_profile.memory_usage()))
+print ('Took {} seconds'.format(t2-t1))
+
+# ---------------------------------------------------------------------
+# list comprehension
+# https://www.youtube.com/watch?v=3dt4OGnU5sM
+# an easier and readable to create list
+# also lambda, map(), filter()
+# ---------------------------------------------------------------------
+# list comprehension does NOT crate a generator object, it creates a new list
+my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+# my_new_list is  the copy of my_list
+my_new_list = [x for x in my_list]
+print (my_new_list)
+
+# my_new_list_2 is the square of my_list
+my_new_list_2 = [x*x for x in my_list]
+print (my_new_list_2)
+
+# using map + lambda
+# map each item in my_list using the lambda function
+my_new_list_3 = map(lambda n: n*n, my_list)
+# <map object at 0x000002822734C908>
+print (my_new_list_3)
+
+# what if I am only interested in the even numbers in my_list
+my_new_list_4 = [x for x in my_list if x%2 == 0]
+print (my_new_list_4)
+
+# this can also be done with filter + lambda
+# filter() returns a filter object, in order to print the list content
+# use list(<filter object>)
+my_new_list_5 = filter(lambda n: n%2 == 0, my_list)
+print (list(my_new_list_5))
+
+# a more complicated example
+# create a list of tuples of two items 
+my_letter_num = [(letter, num) for letter in 'abcd' for num in range(4)]
+
+
+
+# ---------------------------------------------------------------------
+# lambda
+# ---------------------------------------------------------------------
+sqrt_func = lambda z: z ** 2
+print (sqrt_func(2))
+# or
+print ((lambda z: z ** 2)(3))
+
+# lambda with two parameters
+full_name_func = lambda first, last: f'Full name: {first.title()} {last.title()}'
+print (full_name_func('Claude', 'Monet'))
+
+# lambda used in a high order function which 
+# is also a lambda
+high_ord_func = lambda x, func: x + func(x)
+# 2 + 2 * 2
+print (high_ord_func(2, lambda x: x * x))
+# 2 + 2 + 3
+print (high_ord_func(2, lambda x: x + 3))
+
+
+# reduce() function
+# https://www.geeksforgeeks.org/reduce-in-python/
+# At first step, first two elements of sequence are picked and the result is obtained.
+# Next step is to apply the same function to the previously attained result and the number just succeeding the second element and the result is again stored.
+# This process continues till no more elements are left in the container.
+# This function is defined in “functools” module.
+
+from functools import reduce
+# initializing list 
+lis = [ 1, 3, 5, 6, 2] 
+# using reduce to compute sum of list 
+# print end keyword
+# https://www.journaldev.com/15182/python-print#python-print-end-keyword
+# The end key of print function will set the string that needs to be appended when printing is done.
+# By default the end key is set by newline character. So after finishing printing all the 
+# variables, a newline character is appended. Hence, we get the output of each print 
+# statement in different line. 
+print ("The sum of the list elements is : ", end="") 
+print (reduce(lambda a, b : a+b, lis)) 
 
 
 
