@@ -134,6 +134,11 @@ print(phrase.replace("Giraffe", "Elephant"))
 # ---------------------------------------------------------------------
 print(2.09)
 print(3 + 4 * 5)   # *, /, +, -, %
+# python has two division operators, a single slash character ('/') for classic division 
+# and a double-slash ('//') for “floor” division (rounds down to nearest whole number). 
+# Classic division means that if the operands are both integers, it will perform 
+# floor division, while for floating point numbers, it represents true division.
+
 my_num = 5
 # str() converts a integer to a string
 print(str(my_num) + " is my favorite number")
@@ -1252,6 +1257,96 @@ lis = [ 1, 3, 5, 6, 2]
 # statement in different line. 
 print ("The sum of the list elements is : ", end="") 
 print (reduce(lambda a, b : a+b, lis)) 
+
+# ---------------------------------------------------------------------
+# duck typing and Asking Forgiveness, Not Permission (EAFP)
+# "if an object walks like a duck, quacks like a duck, it is a duck"
+# https://www.youtube.com/watch?v=x3v9zMX1s4s&t=281s
+# ---------------------------------------------------------------------
+
+class Duck:
+    def quack(self):
+        print ("Quack, quack")
+    def fly(self):
+        print ("Flap, flap")
+
+class DuckPerson:
+    def quack(self):
+        print ("I am quacking like a duck")
+    def fly(self):
+        print ("I am flaping my arm")
+
+# non phthonic
+# check object type
+def quack_and_fly_1(object):
+    if isinstance(object, Duck):
+        object.quack()
+        object.fly()
+    else:
+        print("this is NOT a duck, it doesn't quack or fly")
+
+# check object behavior
+# ask for permission before doing anything
+# better than checking type, but cumbersome
+def quack_and_fly_2(object):
+    if hasattr(object, 'quack'):
+        if callable(object.quack):
+            object.quack()
+
+    if hasattr(object, 'fly'):
+        if callable(object.fly):
+            object.fly()
+
+# pythonic
+# ask for forgiveness
+# try to do something without check, if it doens't work, then handle it
+def quack_and_fly_3(object):
+    try:
+        object.quack()
+        object.fly()
+        # the following will throw an AttributeError exception
+        # object.bark()
+    except AttributeError as e:
+        print(e)
+
+d = Duck()
+quack_and_fly_1(d)
+quack_and_fly_2(d)
+quack_and_fly_3(d)
+
+dp = DuckPerson()
+quack_and_fly_1(dp)
+quack_and_fly_2(dp)
+quack_and_fly_3(dp)
+
+# another example
+# person is defined above
+#   person = {'name': 'Jenny', 'age': 23}
+
+# non-pythonic
+if 'name' in person and 'age' in person and 'job' in person:
+    print('I am {name}, I am {age} years old and I am a {job}'.format(**person))
+else:
+    print('Missing some keys')
+
+# pythonic 
+try:
+    print('I am {name}, I am {age} years old and I am a {job}'.format(**person))
+except KeyError as e:
+    print('Missing {} key'.format(e))
+
+# see more
+# Python Tutorial: Using Try/Except Blocks for Error Handling
+# https://www.youtube.com/watch?v=NIWwJbo-9_8
+
+
+
+
+
+
+
+
+
 
 
 

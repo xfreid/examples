@@ -730,11 +730,12 @@ console.log(myBook._author);
 // import functions from other files
 // .js extension is not required
 import { capitalizeStr } from "./string_func.js";
-// console.log(capitalizeStr('hello'));
+console.log(capitalizeStr('hello'));
 
 // if you want to import everything
 // impot * as mymodule from './string_func.js';
 
 // export default
+
 
 // import default
