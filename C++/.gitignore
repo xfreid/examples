@@ -1,4 +1,5 @@
 # Ignore generated executables
 *.exe
 
-# Ignore Gradle build output directory
+# Ignore object files
+*.o
