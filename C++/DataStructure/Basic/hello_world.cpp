@@ -3,6 +3,7 @@
   
 // Header file for input output functions 
 #include<iostream>  
+#include<fstream>
 #include<vector>
   
 // main function - 
@@ -27,9 +28,9 @@ int main()
     std::cout << "it2 :" << *it2 << std::endl;
     it2 --;
     std::cout << "it2 :" << *it2 << std::endl;
+
 #if 0
     for (auto it = v.begin(); it != v.end(); it++) {
-        // if (*it & 1) 
         if (*it < 4) {
             it = v.erase(it);
             it --;
@@ -40,6 +41,14 @@ int main()
         std::cout << i << " ";
     }
 #endif
+
+    // write integer to a binary file
+    std::ofstream f("data.bin", std::ofstream::out  | std::ofstream::binary);
+    // 0x0000FFAA (32bit integer)
+    int iNumber = 65450;
+    // f.write((char*)&nI, sizeof(int));
+    f << iNumber;
+    f.close();
 
     return 0; 
 } 
